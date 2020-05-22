@@ -1,0 +1,30 @@
+language: "node_js"
+
+node_js:
+  - "12"
+
+install:
+  - npm install -g bids-validator@1.5.0
+
+script:
+  # Validating the BIDS datasets using bids-validator
+  # and then checking for large files (there shouldn't be any)
+  - |
+    rc=0;
+    for i in $(ls -d */ | grep -v node_modules);
+    do
+      echo "Validating dataset" $i
+      bids-validator ${i%%/} --ignoreNiftiHeaders -c $PWD/bidsconfig.json || rc=$?
+    done
+
+    echo "Checking for big files ..."
+    found=`find . -not -path "./.git*" -type f -size +500k`
+    if [ "$found" == "" ]
+    then
+      echo "No big files present, great!"
+      exit $rc;
+    else
+      echo "Found big files:"
+      echo "$found"
+      exit 1;
+    fi
