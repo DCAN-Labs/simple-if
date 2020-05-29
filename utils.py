@@ -18,13 +18,15 @@ def collect_fmaps_and_targets(paths):
     pretty_json = {}  # collects only filenames
     pretty_paths = []  # collects only filenames
     for path in paths:
-        if 'fmap' in path and path.endswith('.json'):
+        if 'fmap' in path and (path.endswith('.nii') or path.endswith('.gz')):
             fmaps[path] = []
             pretty_json[os.path.basename(path)] = []
-        elif '.json' in path and not 'fmap' in path:
+        elif ('.nii' in path or '.gz' in path) and not 'fmap' in path:
             targets.append(path)
             pretty_paths.append(os.path.basename(path))
     
+    # now we hand over the paths to the json's not the .nii or .nii.gz files by simply replacing all
+    # file extensions w/ .json
     for key in fmaps.keys():
         fmaps[key] = targets
 
@@ -34,7 +36,7 @@ def collect_fmaps_and_targets(paths):
     # TODO Remove print statements 
     print('#'*80)
     pp.pprint(pretty_json)
-    return fmaps
+    return switch_from_nifti_to_json(fmaps)
 
 def assign_intended_fors(fmaps_and_targets):
     """
@@ -47,3 +49,12 @@ def assign_intended_fors(fmaps_and_targets):
     pp.pprint(fmaps_and_targets)
     
     # TODO Call your intended for routine on fmaps and targets
+
+def switch_from_nifti_to_json(dictionary_object):
+    new_json_dict = {}
+    for k, v in dictionary_object.items():
+        new_target_jsons = []
+        for nifti in v:
+            new_target_jsons.append(nifti.replace('.nii', '.json').replace('.gz', ''))
+        new_json_dict[k.replace('.nii', '.json').replace('.gz', '')] = new_target_jsons
+    return new_json_dict

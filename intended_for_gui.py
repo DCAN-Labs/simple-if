@@ -26,9 +26,9 @@ def add_files_in_folder(parent, dirname):
             treedata.Insert(parent, fullname, f, values=[], icon=folder_icon)
             add_files_in_folder(fullname, fullname)
         else:
-
-            treedata.Insert(parent, fullname, f, values=[
-                            os.stat(fullname).st_size], icon=file_icon)
+            if ".nii" in f or ".nii.gz" in f:
+                treedata.Insert(parent, fullname, f, values=[
+                                os.stat(fullname).st_size], icon=file_icon)
 
 
 add_files_in_folder('', starting_path)
