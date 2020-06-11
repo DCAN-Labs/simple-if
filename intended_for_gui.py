@@ -3,6 +3,7 @@ import sys
 import os
 import PySimpleGUI as sg
 from utils import assign_intended_fors, collect_fmaps_and_targets
+from assign_targets import add_to_intendedfor_fields
 
 # Base64 versions of images of a folder and a file. PNG files (may not work with PySimpleGUI27, swap with GIFs)
 
@@ -57,7 +58,7 @@ while True:     # Event Loop
     fmaps_and_targets = collect_fmaps_and_targets(values['-TREE-'])
 
     if event == 'Assign Intended Fields':
-        assign_intended_fors(fmaps_and_targets)
+        add_to_intendedfor_fields(fmaps_and_targets)
 
 window.close()
 
