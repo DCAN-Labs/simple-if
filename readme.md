@@ -5,6 +5,16 @@ for use as intended for objects with other bids jsons.
 - pysimplegui
 - python3-tk
 
+PySimpleGUI is the only exernal python library needed to run this program, 
+it can be installed via pip into your desired Python3 install:
+```bash
+[galassi@exahead1 intendedforgui]$ pip3 install pysimplegui
+```
+Or if the above doesn't work installed to your user profile:
+```bash
+[galassi@exahead1 intendedforgui]$ pip3 install pysimplegui --user
+```
+
 Note: At the time of this writing python3-tk must be installed via command line
 ```bash
 sudo apt-get install python3-tk
