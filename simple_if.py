@@ -35,7 +35,7 @@ def add_files_in_folder(parent, dirname):
 add_files_in_folder('', starting_path)
 
 
-layout = [[sg.Text('Intended For Browser')],
+layout = [[sg.Text('SimpleIF Browser')],
           [sg.Tree(data=treedata,
                    headings=['Size', ],
                    auto_size_columns=True,
@@ -47,7 +47,7 @@ layout = [[sg.Text('Intended For Browser')],
            ],
           [sg.Button('Assign Intended Fields'), sg.Button('Cancel')]]
 
-window = sg.Window('Intended For', layout)
+window = sg.Window('SimpleIF', layout)
 
 
 while True:     # Event Loop
